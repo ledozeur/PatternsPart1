@@ -3,7 +3,7 @@ import java.util.OptionalInt;
 public class Person {
     protected String name;
     protected String surname;
-    private int age;
+    private Integer age;
     private String address;
 
 
@@ -19,6 +19,9 @@ public class Person {
     }
 
     public boolean hasAge() {
+        if (age.equals(getAge().isEmpty())) {
+            return false;
+        }
         return getAge().isPresent();
     }
 
@@ -35,6 +38,9 @@ public class Person {
     }
 
     public OptionalInt getAge() {
+        if (age == null || age < 0) {
+            return OptionalInt.empty();
+        }
         return OptionalInt.of(age);
     }
 
@@ -61,10 +67,10 @@ public class Person {
     }
 
     public PersonBuilder newChildBuilder() {
-        int childAge = 0;
+
         return new PersonBuilder()
                 .setSurname(this.surname)
-                .setAge(10);
+                .setAge(0);
     }
 
 
